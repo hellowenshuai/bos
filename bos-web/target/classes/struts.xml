@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 配置常量 -->
+	<!-- 字符集 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="false"></constant>
+	<!-- action对象由spring创建 spring-hibernate整合的配置文件中存在-->
+	<!-- <constant name="struts.objectFactory" value="spring"></constant> -->
+
+	<!-- 通用package -->
+	<package name="basicstruts2" extends="struts-default">
+		<!-- 需要进行权限控制的页面访问 -->
+		<action name="page_*_*">
+			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+		
+		<!-- 用户管理 -->
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="login">/login.jsp</result>
+			<result name="home">/index.jsp</result>
+		</action>
+		
+	</package>
+</struts>
