@@ -9,9 +9,9 @@ import com.opensymphony.xwork2.ModelDriven;
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
 	public static final java.lang.String HOME = "home";
-	protected T model;
+	public static final java.lang.String LIST = "list";
 	
-
+	protected T model;
 
 	// model对象如何创建
 	@Override

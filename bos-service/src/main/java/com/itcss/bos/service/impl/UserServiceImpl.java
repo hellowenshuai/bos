@@ -22,4 +22,10 @@ public class UserServiceImpl implements IUserService {
 		return userDao.findUserByUsernameAndPassword(model.getUsername(),password);
 	}
 
+	@Override
+	public void editPassword(String id, String password) {
+		password = MD5Utils.md5(password);
+		userDao.executeUpdate("user.editpassword",password,id);
+	}
+
 }

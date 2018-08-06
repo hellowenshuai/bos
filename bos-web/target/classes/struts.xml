@@ -9,21 +9,45 @@
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 	<!-- 开发模式 -->
 	<constant name="struts.devMode" value="false"></constant>
-	<!-- action对象由spring创建 spring-hibernate整合的配置文件中存在-->
+	<!-- action对象由spring创建 spring-hibernate整合的配置文件中存在 -->
 	<!-- <constant name="struts.objectFactory" value="spring"></constant> -->
+
 
 	<!-- 通用package -->
 	<package name="basicstruts2" extends="struts-default">
+		<!-- 注册自定义拦截器 -->
+		<interceptors>
+			<interceptor name="bosLoginInterceptor"
+				class="com.itcss.bos.web.interceptor.BOSLoginInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<!-- 定义拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="bosLoginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 设置默认拦截器栈 -->
+		<default-interceptor-ref name="myStack" />
+	
+		<!-- 全局返回页面 -->
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+
 		<!-- 需要进行权限控制的页面访问 -->
 		<action name="page_*_*">
 			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
 		</action>
-		
+
 		<!-- 用户管理 -->
 		<action name="userAction_*" class="userAction" method="{1}">
-			<result name="login">/login.jsp</result>
 			<result name="home">/index.jsp</result>
 		</action>
-		
+		<!-- 取派员管理 -->
+		<action name="staffAction_*" class="staffAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+
 	</package>
 </struts>
