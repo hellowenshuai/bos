@@ -24,8 +24,9 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/easyui/ext/jquery.cookie.js"></script>
 <script
-	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
-	type="text/javascript"></script>
+	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"	type="text/javascript"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.ocupload-1.1.2.js"></script>	
+	
 <script type="text/javascript">
 	function doAdd(){
 		$('#addRegionWindow').window("open");
@@ -114,6 +115,12 @@
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
+		});
+		
+		//页面加载完成之后，调用OCUpload插件的方法
+		$("#button-import").upload({
+			action:'regionAction_importXls.action',
+			name:'regionFile'
 		});
 		
 		// 添加、修改区域窗口

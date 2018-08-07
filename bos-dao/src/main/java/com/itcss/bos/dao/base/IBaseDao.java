@@ -19,6 +19,8 @@ public interface IBaseDao<T> {
 	public void delete(T entity);
 
 	public void update(T entity);
+	
+	public void saveOrUpdate(T entity);
 
 	public T findById(Serializable id);
 
