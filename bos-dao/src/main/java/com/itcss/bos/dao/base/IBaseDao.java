@@ -3,6 +3,8 @@ package com.itcss.bos.dao.base;
 import java.io.Serializable;
 import java.util.List;
 
+import com.itcss.bos.utils.PageBean;
+
 /**
  * 持久层通用接口
  * 
@@ -23,5 +25,7 @@ public interface IBaseDao<T> {
 	public List<T> findAll();
 	
 	public void executeUpdate(String queryName, Object... objects);
+	
+	public void pageQuery(PageBean pageBean); 
 
 }

@@ -32,4 +32,10 @@
             <one-to-many class="com.itcss.bos.domain.Decidedzone" />
         </set>
     </class>
+    <query  name="staff.delete">
+    UPDATE Staff SET deltag = '1' WHERE id = ?
+    </query>
+    <query  name="staff.restore">
+    UPDATE Staff SET deltag = '0' WHERE id = ?
+    </query>
 </hibernate-mapping>

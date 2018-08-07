@@ -10,9 +10,12 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.itcss.bos.dao.base.IBaseDao;
+import com.itcss.bos.utils.PageBean;
 
 public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	// 代码某个实体的类型
@@ -72,5 +75,23 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		}
 		// 执行更新
 		query.executeUpdate();
+	}
+
+	@Override
+	public void pageQuery(PageBean pageBean) {
+		int currentPage =pageBean.getCurrentPage();
+		int pageSize = pageBean.getPageSize();
+		DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
+		//查询总记录数
+		detachedCriteria.setProjection(Projections.rowCount());
+		List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+		Long count = countList.get(0);
+		pageBean.setTotal(count.intValue());
+		//查询rows，前台需要的数据集合
+		detachedCriteria.setProjection(null);
+		int firstResult = (currentPage-1)*pageSize;
+		int maxResults = pageSize;
+		List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria, firstResult, maxResults);
+		pageBean.setRows(rows);
 	}
 }
