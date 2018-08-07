@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itcss.bos.dao.IRegionDao;
 import com.itcss.bos.domain.Region;
 import com.itcss.bos.service.IRegionService;
+import com.itcss.bos.utils.PageBean;
 @Service
 @Transactional
 public class RegionServiceImpl implements IRegionService {
@@ -21,6 +22,10 @@ public class RegionServiceImpl implements IRegionService {
 		for (Region region : regionList) {
 			regionDao.saveOrUpdate(region);
 		}
+	}
+	@Override
+	public void pageQuery(PageBean pageBean) {
+		regionDao.pageQuery(pageBean);
 	}
 
 	

@@ -2,7 +2,6 @@ package com.itcss.bos.web.action;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import com.itcss.bos.service.IRegionService;
 import com.itcss.bos.utils.PinYin4jUtils;
 import com.itcss.bos.web.action.base.BaseAction;
 
+
 /**
  * 区域管理
  * @author chenwen
@@ -31,6 +31,11 @@ public class RegionAction extends BaseAction<Region>{
 	
 	//属性驱动
 	private File regionFile;
+	//忘记添加set/get方法，会查询出错
+		private int page;
+		private int rows;
+		
+	
 	@Autowired
 	private IRegionService regionService;
 	
@@ -81,5 +86,38 @@ public class RegionAction extends BaseAction<Region>{
 		
 		return NONE;
 	}
+	
+
+	/**
+	 * 区域分页查询
+	 * @return
+	 * @throws Exception
+	 */
+	public String pageQuery() throws Exception {
+		regionService.pageQuery(pageBean);
+		this.java2Json(pageBean, new String[]{"currentPage","detachedCriteria","pageSize"});
+		return NONE;
+	}
+
+
+	public int getPage() {
+		return page;
+	}
+
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+
+	public int getRows() {
+		return rows;
+	}
+
+
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+	
 	
 }
