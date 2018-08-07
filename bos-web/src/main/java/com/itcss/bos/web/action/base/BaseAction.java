@@ -3,6 +3,7 @@ package com.itcss.bos.web.action.base;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
@@ -11,6 +12,7 @@ import com.itcss.bos.utils.PageBean;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -38,10 +40,32 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		return model;
 	}
 
+	/**
+	 * 单个元素
+	 * @param o
+	 * @param exclueds
+	 */
 	public void java2Json(Object o,String[] exclueds){
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setExcludes(exclueds);
-		String json = JSONObject.fromObject(o).toString();
+		String json = JSONObject.fromObject(o,jsonConfig).toString();
+		ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
+		try {
+			ServletActionContext.getResponse().getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	/**
+	 * 数组，集合
+	 * @param o
+	 * @param exclueds
+	 */
+	public void java2Json(List o,String[] exclueds){
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes(exclueds);
+		String json = JSONArray.fromObject(o,jsonConfig).toString();
 		ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
 		try {
 			ServletActionContext.getResponse().getWriter().println(json);

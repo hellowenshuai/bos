@@ -46,6 +46,10 @@ public class Region implements java.io.Serializable {
 
 	// Property accessors
 
+	public String getName(){
+		return province+city+district;
+		
+	}
 	public String getId() {
 		return this.id;
 	}
