@@ -157,10 +157,10 @@
 			border : true,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [1],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/subarea.json",
+			url : "subareaAction_pageQuery.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -187,8 +187,32 @@
 	        height: 400,
 	        resizable:false
 	    });
+		//定义一个工具方法，用于将指定的form表单中所有的输入项转为json数据{key:value,key:value}
+		$.fn.serializeJson=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];  
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        };
+		
 		$("#btn").click(function(){
-			alert("执行查询...");
+			//将指定的form表单中所有的输入项转为json数据{key:value,key:value}
+			var p = $("#searchForm").serializeJson();
+			console.info(p);
+			//调用数据表格的load方法，重新发送一次ajax请求，并且提交参数
+			$("#grid").datagrid("load",p);
+			//关闭查询窗口
+			$("#searchWindow").window("close");
 		});
 		
 	});
@@ -268,7 +292,7 @@
 	<!-- 查询分区 -->
 	<div class="easyui-window" title="查询分区窗口" id="searchWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="searchForm">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">查询条件</td>

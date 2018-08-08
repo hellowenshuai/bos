@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itcss.bos.dao.ISubareaDao;
 import com.itcss.bos.domain.Subarea;
 import com.itcss.bos.service.ISubareaService;
+import com.itcss.bos.utils.PageBean;
 
 @Service
 @Transactional
@@ -18,6 +19,11 @@ public class SubareaServiceImpl implements ISubareaService {
 	@Override
 	public void save(Subarea model) {
 		subareaDao.save(model);
+	}
+
+	@Override
+	public void pageQuery(PageBean pageBean) {
+		subareaDao.pageQuery(pageBean);
 	}
 
 }
