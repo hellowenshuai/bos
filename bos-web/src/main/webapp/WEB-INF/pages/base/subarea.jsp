@@ -44,7 +44,8 @@
 	}
 	
 	function doExport(){
-		alert("导出");
+		///不能使用post，get请求方式页面可以自动刷新
+		window.location.href = "subareaAction_exportXls.action ";
 	}
 	
 	function doImport(){

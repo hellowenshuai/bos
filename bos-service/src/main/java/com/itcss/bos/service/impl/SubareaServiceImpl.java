@@ -1,5 +1,7 @@
 package com.itcss.bos.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +26,11 @@ public class SubareaServiceImpl implements ISubareaService {
 	@Override
 	public void pageQuery(PageBean pageBean) {
 		subareaDao.pageQuery(pageBean);
+	}
+
+	@Override
+	public List<Subarea> findAll() {
+		return subareaDao.findAll();
 	}
 
 }
