@@ -1,5 +1,7 @@
 package com.itcss.bos.service;
 
+import java.util.List;
+
 import com.itcss.bos.domain.Staff;
 import com.itcss.bos.utils.PageBean;
 
@@ -16,5 +18,7 @@ public interface IStaffService {
 	public Staff findById(String id);
 
 	public void update(Staff staff);
+
+	public List<Staff> findListNotDelete();
 
 }

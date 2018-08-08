@@ -1,6 +1,7 @@
 package com.itcss.bos.web.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -75,7 +76,17 @@ public class StaffAction extends BaseAction<Staff> {
 		
 		return LIST;
 	}
-	
+	/**
+	 * 查询所有未删除的取派员，返回json
+	 * @return
+	 */
+	public String listajax(){
+		List<Staff> list = staffService.findListNotDelete();
+		
+		this.java2Json(list, new String[]{"decidedzones"});
+		return NONE;
+		
+	}
 	
 	public String getIds() {
 		return ids;

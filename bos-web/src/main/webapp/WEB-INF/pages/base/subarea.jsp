@@ -158,7 +158,7 @@
 			border : true,
 			rownumbers : true,
 			striped : true,
-			pageList: [1],
+			pageList: [3,5,10],
 			pagination : true,
 			toolbar : toolbar,
 			url : "subareaAction_pageQuery.action",

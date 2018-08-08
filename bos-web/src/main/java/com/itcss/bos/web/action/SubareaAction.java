@@ -1,6 +1,7 @@
 package com.itcss.bos.web.action;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -101,7 +102,7 @@ public class SubareaAction extends BaseAction<Subarea>{
 		}
 	
 		//第三步：使用输出流进行文件下载
-		String filename = "分区数据.xls";
+		String filename = new Date()+"分区数据.xls";
 		String contentType = ServletActionContext.getServletContext().getMimeType(filename);
 		ServletOutputStream out = ServletActionContext.getResponse().getOutputStream();
 		ServletActionContext.getResponse().setContentType(contentType);
@@ -112,6 +113,17 @@ public class SubareaAction extends BaseAction<Subarea>{
 				"attachment;filename="+filename);
 		workbook.write(out);
 		return NONE;
+		
+	}
+	
+	/**
+	 * 查询所有未关联到定区的分区，返回json
+	 * @return
+	 */
+	public String listajax(){
+		List<Subarea> list= subareaService.findListNotAssociation();
+		this.java2Json(list, new String[]{"decidedzone","region"});
+		return null;
 		
 	}
 

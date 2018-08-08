@@ -3,6 +3,8 @@ package com.itcss.bos.dao.base;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import com.itcss.bos.utils.PageBean;
 
 /**
@@ -25,6 +27,8 @@ public interface IBaseDao<T> {
 	public T findById(Serializable id);
 
 	public List<T> findAll();
+	
+	public List<T> findByCriteria(DetachedCriteria detachedCriteria); 
 	
 	public void executeUpdate(String queryName, Object... objects);
 	
