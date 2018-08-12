@@ -42,5 +42,12 @@ public class SubareaServiceImpl implements ISubareaService {
 		detachedCriteria.add(Restrictions.isNull("decidedzone"));
 		return subareaDao.findByCriteria(detachedCriteria);
 	}
+	//依据定区id，查询关联的分区
+	public List<Subarea> findListByDecidedzoneId(String decidedzoneId) {
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Subarea.class);
+		//单表查询，不需要连接
+		detachedCriteria.add(Restrictions.eq("decidedzone.id",decidedzoneId));
+		return subareaDao.findByCriteria(detachedCriteria);
+	}
 
 }

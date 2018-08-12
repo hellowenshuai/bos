@@ -1,6 +1,7 @@
 package com.itcss.bos.web.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
@@ -12,10 +13,14 @@ import com.itcss.bos.domain.User;
 import com.itcss.bos.service.IUserService;
 import com.itcss.bos.utils.BOSUtils;
 import com.itcss.bos.web.action.base.BaseAction;
+import com.itcss.crm.Customer;
+import com.itcss.crm.ICustomerService;
 
 @Controller
 @Scope("prototype")
 public class UserAction extends BaseAction<User> {
+	@Autowired
+	private ICustomerService proxy;
 	//验证码
 	private String checkcode;
 
@@ -32,6 +37,8 @@ public class UserAction extends BaseAction<User> {
 	 * @throws Exception
 	 */
 	public String login() throws Exception {
+		List<Customer> all = proxy.findAll();
+		System.out.println(all);
 		//1.从session中获取输入的验证码
 		String validatecode  = (String) ServletActionContext.getRequest().getSession().getAttribute("key");
 		//2.校验验证码是否正确

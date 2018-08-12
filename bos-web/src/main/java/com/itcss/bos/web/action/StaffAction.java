@@ -14,9 +14,6 @@ import com.itcss.bos.web.action.base.BaseAction;
 @Controller
 @Scope("prototype")
 public class StaffAction extends BaseAction<Staff> {
-	//忘记添加set/get方法，会查询出错
-	private int page;
-	private int rows;
 	
 	@Autowired
 	private IStaffService staffService;
@@ -32,7 +29,7 @@ public class StaffAction extends BaseAction<Staff> {
 	 */
 	public String pageQuery() throws IOException{
 		staffService.pageQuery(pageBean);
-		this.java2Json(pageBean, new String[]{"currentPage","detachedCriteria","pageSize"});
+		this.java2Json(pageBean, new String[]{"currentPage","detachedCriteria","pageSize","decidedzones"});
 		return NONE;
 	}
 	
@@ -93,18 +90,6 @@ public class StaffAction extends BaseAction<Staff> {
 	}
 	public void setIds(String ids) {
 		this.ids = ids;
-	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
-	public int getRows() {
-		return rows;
-	}
-	public void setRows(int rows) {
-		this.rows = rows;
 	}
 	
 	
