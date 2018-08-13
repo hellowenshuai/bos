@@ -60,6 +60,13 @@
 		<action name="decidedzoneAction_*" class="decidedzoneAction" method="{1}">
 			<result name="list">/WEB-INF/pages/base/decidedzone.jsp</result>
 		</action>
+		<!-- 业务通知单管理 -->
+		<action name="noticebillAction_*" class="noticebillAction" method="{1}">
+			<result name="noticebill_add">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
+		</action>
+		<!-- 工作单管理 -->
+		<action name="workordermanageAction_*" class="workordermanageAction" method="{1}">
+		</action>
 
 	</package>
 </struts>

@@ -30,6 +30,7 @@
 	var editIndex ;
 	
 	function doAdd(){
+		//两个if，实现新增按钮 保存当前编辑行，编辑完之后，将editIndex=undefined 赋值未新增第一行
 		if(editIndex != undefined){
 			$("#grid").datagrid('endEdit',editIndex);
 		}
@@ -165,6 +166,11 @@
 			onAfterEdit : function(rowIndex, rowData, changes){
 				console.info(rowData);
 				editIndex = undefined;
+				$.post('workordermanageAction_add.action',rowData,function(data){
+					if(data == '0'){
+						$.messager.alert("提示信息","工作单信息录入失败！","error");
+					}
+				});
 			}
 		});
 	});

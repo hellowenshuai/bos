@@ -19,8 +19,8 @@ import com.itcss.crm.ICustomerService;
 @Controller
 @Scope("prototype")
 public class UserAction extends BaseAction<User> {
-	@Autowired
-	private ICustomerService proxy;
+//	@Autowired
+//	private ICustomerService proxy;
 	//验证码
 	private String checkcode;
 
@@ -37,8 +37,8 @@ public class UserAction extends BaseAction<User> {
 	 * @throws Exception
 	 */
 	public String login() throws Exception {
-		List<Customer> all = proxy.findAll();
-		System.out.println(all);
+//		List<Customer> all = proxy.findAll();
+//		System.out.println(all);
 		//1.从session中获取输入的验证码
 		String validatecode  = (String) ServletActionContext.getRequest().getSession().getAttribute("key");
 		//2.校验验证码是否正确
