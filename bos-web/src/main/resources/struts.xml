@@ -29,12 +29,16 @@
 		</interceptors>
 		<!-- 设置默认拦截器栈 -->
 		<default-interceptor-ref name="myStack" />
-	
+
 		<!-- 全局返回页面 -->
 		<global-results>
 			<result name="login">/login.jsp</result>
+			<result name="unauthorized">/unauthorized.jsp</result>
 		</global-results>
-
+		<!-- 全局异常页面 -->
+		<global-exception-mappings>
+			<exception-mapping result="unauthorized" exception="org.apache.shiro.authz.UnauthorizedException"></exception-mapping>
+		</global-exception-mappings>
 		<!-- 需要进行权限控制的页面访问 -->
 		<action name="page_*_*">
 			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
@@ -48,7 +52,7 @@
 		<action name="staffAction_*" class="staffAction" method="{1}">
 			<result name="list">/WEB-INF/pages/base/staff.jsp</result>
 		</action>
-		
+
 		<!-- 区域管理 -->
 		<action name="regionAction_*" class="regionAction" method="{1}">
 		</action>
@@ -57,15 +61,18 @@
 			<result name="list">/WEB-INF/pages/base/subarea.jsp</result>
 		</action>
 		<!-- 定区管理 -->
-		<action name="decidedzoneAction_*" class="decidedzoneAction" method="{1}">
+		<action name="decidedzoneAction_*" class="decidedzoneAction"
+			method="{1}">
 			<result name="list">/WEB-INF/pages/base/decidedzone.jsp</result>
 		</action>
 		<!-- 业务通知单管理 -->
-		<action name="noticebillAction_*" class="noticebillAction" method="{1}">
+		<action name="noticebillAction_*" class="noticebillAction"
+			method="{1}">
 			<result name="noticebill_add">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
 		</action>
 		<!-- 工作单管理 -->
-		<action name="workordermanageAction_*" class="workordermanageAction" method="{1}">
+		<action name="workordermanageAction_*" class="workordermanageAction"
+			method="{1}">
 		</action>
 
 	</package>

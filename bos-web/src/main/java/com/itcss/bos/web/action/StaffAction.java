@@ -3,6 +3,8 @@ package com.itcss.bos.web.action;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,7 @@ public class StaffAction extends BaseAction<Staff> {
 	 * @return
 	 * @throws Exception
 	 */
+	@RequiresPermissions("staff-delete")
 	public String deleteBatch() throws Exception {
 		staffService.deleteBatch(ids);
 		return LIST;

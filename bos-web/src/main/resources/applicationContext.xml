@@ -97,6 +97,11 @@
 	</bean>
 	<!-- 注册自定义realm -->
 	<bean id="bosRealm" class="com.itcss.bos.realm.BOSRealm"></bean>
-	
-	
+	<!-- 开启shiro框架注解支持 -->
+	<bean id="defaultAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"> 
+		<!-- 必须使用cglib方式[Jdk是反射父类接口，cglib直接反射子类实现]为Action对象创建代理对象 -->
+		<property name="proxyTargetClass" value="true"/>
+	</bean>
+		<!-- 配置shiro框架提供的切面类，用于创建代理对象 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
 </beans>
