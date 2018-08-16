@@ -47,6 +47,7 @@
 		<!-- 用户管理 -->
 		<action name="userAction_*" class="userAction" method="{1}">
 			<result name="home">/index.jsp</result>
+			<result name="list">/WEB-INF/pages/admin/userlist.jsp</result>
 		</action>
 		<!-- 取派员管理 -->
 		<action name="staffAction_*" class="staffAction" method="{1}">

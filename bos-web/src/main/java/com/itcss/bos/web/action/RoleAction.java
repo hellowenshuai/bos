@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.itcss.bos.domain.Function;
 import com.itcss.bos.domain.Role;
 import com.itcss.bos.service.IRoleService;
 import com.itcss.bos.web.action.base.BaseAction;
@@ -22,6 +23,14 @@ public class RoleAction extends BaseAction<Role> {
 	
 	@Autowired
 	private IRoleService roleService;
+	
+	//显示所有菜单
+		public String listajax(){
+			List<Role> list=roleService.findAll();
+			this.java2Json(list, new String[]{"functions","users"});
+			return NONE;
+			
+		}
 	
 	//添加角色
 	public String add(){

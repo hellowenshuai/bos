@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.itcss.bos.domain.Role;
 import com.itcss.bos.domain.User;
 import com.itcss.bos.service.IUserService;
 import com.itcss.bos.utils.BOSUtils;
@@ -24,17 +25,39 @@ import com.itcss.crm.ICustomerService;
 @Controller
 @Scope("prototype")
 public class UserAction extends BaseAction<User> {
-//	@Autowired
-//	private ICustomerService proxy;
 	//验证码
 	private String checkcode;
-
 	public void setCheckcode(String checkcode) {
 		this.checkcode = checkcode;
+	}
+	//属性驱动
+	private String[] roleIds;
+	public void setRoleIds(String[] roleIds) {
+		this.roleIds = roleIds;
 	}
 	//service
 	@Autowired
 	private IUserService userService ; 
+	
+	/**
+	 * 添加用户
+	 * @return
+	 */
+	public String add(){
+		userService.save(model,roleIds);
+		return LIST;
+	}
+	
+	/**
+	 * 用户数据分页查询
+	 * @return
+	 */
+	public String pageQuery(){
+		userService.pageQuery(pageBean);
+		this.java2Json(pageBean, new String[]{"noticebills","roles"});
+		return NONE;
+		
+	}
 
 	/**
 	 * 使用shiro框架实现用户登录

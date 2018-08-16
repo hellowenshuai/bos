@@ -1,5 +1,6 @@
 package com.itcss.bos.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,25 @@ public class User implements java.io.Serializable {
 	private String telephone;
 	private String remark;
 	private Set noticebills = new HashSet(0);
-	private Set roles = new HashSet(0);
+	private Set<Role> roles = new HashSet(0);
+	
+	public String getRoleNames() {
+		String roleNames = "";
+		for (Role role : roles) {
+			String name = role.getName();
+			roleNames+=name+" ";
+		}
+		return roleNames;
+	}
+	
+	public String getBirthdayStr() {
+		if(birthday!=null){
+			String format = new SimpleDateFormat("yyyy-MM-dd").format(birthday);
+			return format;
+		}else{
+			return "暂时没有数据";
+		}
+	}
 
 	// Constructors
 
@@ -54,6 +73,7 @@ public class User implements java.io.Serializable {
 
 	// Property accessors
 
+	
 	public String getId() {
 		return this.id;
 	}

@@ -1,11 +1,18 @@
 package com.itcss.bos.service;
 
+import java.util.List;
+
 import com.itcss.bos.domain.User;
+import com.itcss.bos.utils.PageBean;
 
 public interface IUserService {
 
-	User login(User model);
+	public User login(User model);
 
-	void editPassword(String id, String password);
+	public void editPassword(String id, String password);
+
+	public void save(User model, String[] roleIds);
+
+	public void pageQuery(PageBean pageBean);
 
 }
