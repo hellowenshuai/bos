@@ -5,6 +5,8 @@ import com.itcss.bos.domain.User;
 
 public interface IUserDao extends IBaseDao<User> {
 
-	User findUserByUsernameAndPassword(String username, String password);
+	public User findUserByUsernameAndPassword(String username, String password);
+
+	public User findByUserName(String username);
 
 }
