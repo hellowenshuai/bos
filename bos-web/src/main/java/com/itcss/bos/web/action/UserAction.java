@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.itcss.bos.domain.User;
 import com.itcss.bos.service.IUserService;
 import com.itcss.bos.utils.BOSUtils;
+import com.itcss.bos.utils.MD5Utils;
 import com.itcss.bos.web.action.base.BaseAction;
 import com.itcss.crm.Customer;
 import com.itcss.crm.ICustomerService;
@@ -32,11 +37,42 @@ public class UserAction extends BaseAction<User> {
 	private IUserService userService ; 
 
 	/**
-	 * 用户登录
+	 * 使用shiro框架实现用户登录
 	 * @return
 	 * @throws Exception
 	 */
 	public String login() throws Exception {
+		//1.从session中获取输入的验证码
+		String validatecode  = (String) ServletActionContext.getRequest().getSession().getAttribute("key");
+		//2.校验验证码是否正确
+		if(StringUtils.isNotBlank(checkcode)&&checkcode.equals(validatecode)){
+			//使用shiro方式进行验证
+			Subject subject = SecurityUtils.getSubject();//获得当前登陆用户对象，状态‘未认证’
+			//用户名密码令牌
+			AuthenticationToken token =	 new UsernamePasswordToken(model.getUsername(),MD5Utils.md5(model.getPassword()));
+
+			try {
+				subject.login(token);
+				User user =(User) subject.getPrincipal();
+				ServletActionContext.getRequest().getSession().setAttribute("loginUser", user);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return LOGIN;
+			}
+			return HOME;
+		}else{
+			//2.2.错误
+			this.addActionError("验证码输入错误");
+			return LOGIN;
+		}
+		
+	}
+	/**
+	 * 用户登录
+	 * @return
+	 * @throws Exception
+	 */
+	public String login_bak() throws Exception {
 //		List<Customer> all = proxy.findAll();
 //		System.out.println(all);
 		//1.从session中获取输入的验证码
