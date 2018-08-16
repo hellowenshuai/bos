@@ -74,6 +74,10 @@
 		<action name="workordermanageAction_*" class="workordermanageAction"
 			method="{1}">
 		</action>
+		<!-- 工作单管理 -->
+		<action name="functionAction_*" class="functionAction"	method="{1}">
+			<result name="list">/WEB-INF/pages/admin/function.jsp</result>
+		</action>
 
 	</package>
 </struts>
