@@ -84,12 +84,19 @@
 					<tr>
 						<td>父功能点</td>
 						<td>
+							<!-- 
 							<input name="parentFunction.id" class="easyui-combobox" 
 							data-options="valueField:'id',textField:'name',
 							url:'functionAction_listajax.action'"/>
+							 --> 
+							 <!-- 这里页面显示不出来文字 -->
+							<!--  //TODO DDD -->
+							 <input class="easyui-combotree" name="parentFunction.id"
+							 	data-options="url:'functionAction_listajax.action'" 
+							 	style="width:170px;">
 						</td>
 					</tr>
-					<tr>
+					<tr> 	
 						<td>描述</td>
 						<td>
 							<textarea name="description" rows="4" cols="60"></textarea>

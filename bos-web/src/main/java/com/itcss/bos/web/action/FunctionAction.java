@@ -18,7 +18,7 @@ public class FunctionAction extends BaseAction<Function> {
 	//显示所有菜单
 	public String listajax(){
 		List<Function> list=functionService.findAll();
-		this.java2Json(list, new String[]{"parentFunction","roles","children"});
+		this.java2Json(list, new String[]{"parentFunction","roles"});
 		return NONE;
 		
 	}
