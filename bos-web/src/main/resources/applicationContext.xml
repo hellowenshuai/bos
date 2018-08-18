@@ -91,10 +91,16 @@
 			</value>
 		</property>
 	</bean>
-	<!-- 安全管理器 -->
+	<!-- 注册安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="bosRealm"/>
+		<!-- 注入缓存管理器 -->
+		<!-- <property name="cacheManager" ref="cacheManager"></property> -->
 	</bean>
+	<!-- 注册缓存管理器 -->
+<!-- 	<bean id="cacheManager"  class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+	</bean> -->
 	<!-- 注册自定义realm -->
 	<bean id="bosRealm" class="com.itcss.bos.realm.BOSRealm"></bean>
 	<!-- 开启shiro框架注解支持 -->
